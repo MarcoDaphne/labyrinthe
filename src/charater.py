@@ -2,10 +2,8 @@
 # Coding : utf-8
 
 class Character:
-	def __init__(self, name, position):
+	def __init__(self, name):
 		self.name = name
-		self.position = position
-
 
 	def move():
 		# Si l'utilisateur appuie sur flèche haut:
@@ -19,17 +17,8 @@ class Character:
 		# Sinon:
 			pass
 
-	def restrict_move():
-		"""A mettre dans la class Maze"""
-		# Si l'utilisateur se déplace sur des cases '*':
-			# move()
-		sinon:
-			pass
-
-	def get_sleepy_syringe(all_objects):
-		all_objects = []
-		# Si hero = 'A' and hero = 'T' 
+	def get_sleepy_syringe():
+		pass
 
 
-hero = Character("McGyver", 'M')
-gatekeeper = Character("Guardian", 'G')
+hero = Character("McGyver")

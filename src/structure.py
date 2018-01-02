@@ -20,17 +20,10 @@ class Structure:
 				self.schema.append(liste)
 		return self.schema
 
-	# Fonction determinant si une position est un passage ou un mur
-	def checking_values(self):
-		for liste in self.schema:
-			for character in liste:
-				if character == '_':
-					driveway = True
-				else:
-					driveway = False
-		return driveway
+	#Fonction determinant si une position est un passage ou un mur:
+
+	#Fonction restreignant les mouvements du Hero:
 					
-	
 	def show(self):
 		"""Show each list in self.structure"""
 		for liste in self.schema:
@@ -40,5 +33,4 @@ class Structure:
 #if __name__ == "__main__":
 maze = Structure()
 maze.load()
-maze.checking_values()
 maze.show()

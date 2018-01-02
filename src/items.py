@@ -1,11 +1,13 @@
 #! /usr/bin/env/ python3
 # Coding : utf-8
 
-import structure as stc
-
 class Items:
-	def __init__(self, name, position):
+	def __init__(self, name):
 		self.name = name
-		self.position = position
 
-	# Fonction disposant aléatoirement mes items sur structure
+	#Fonction disposant aléatoirement mes items sur structure:
+
+item1 = Items("Aiguille")
+item2 = Items("Seringue")
+item3 = Items("Ether")
+gatekeeper = Items("Gardien")
