@@ -11,7 +11,7 @@ class Maze:
 
 	def load(self, data="data", data_file="schema.txt"):
 		"""Find path schema.txt, open schema.txt, clean line break and append line in list then character in other list"""
-		directory = os.path.dirname(os.path.dirname(__file__))
+		directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 		path_to_file = os.path.join(directory, data, data_file)
 
 		with open(path_to_file) as f:

@@ -1,10 +1,9 @@
 #! /usr/bin/env/ python3
 # Coding : utf-8
 
-import maze as mz
-
 import random
 
+import maze as mz
 
 class Syringe:
 	def __init__(self, mz):
@@ -38,3 +37,4 @@ if __name__ == "__main__":
 	syringe = Syringe(mz)
 	syringe.find_random_position()
 	syringe.place_items()
+	syringe.mz.show()
