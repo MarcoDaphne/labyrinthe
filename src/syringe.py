@@ -4,16 +4,15 @@
 import random
 
 import maze as mz
+import constant as c
 
 class Syringe:
 	def __init__(self, mz):
 		self.mz = mz
-		self.needle = 'N'
-		self.tube = 'T'
-		self.ether = 'E'
+		self.items = [c.NEEDLE, c.TUBE, c.ETHER]
 
 	def find_random_position(self):
-		"""Method returning a random free position"""
+		"""Return a random position"""
 		structure = self.mz.structure
 		passage = self.mz.free_position
 		i = -1
@@ -25,16 +24,12 @@ class Syringe:
 				return i, j
 
 	def place_items(self):
-		"""Method placing objects randomly in the labyrinth"""
-		syringe = [self.needle, self.tube, self.ether]
-		schema = self.mz.structure
-		for element in syringe:
+		"""Place three objects randomly on the maze""" 
+		for element in self.items:
 			x, y = self.find_random_position()
-			schema[x][y] = element
+			self.mz.set(x, y, element)
 
 
 if __name__ == "__main__":
-	syringe = Syringe(mz)
-	syringe.find_random_position()
+	syringe = Syringe()
 	syringe.place_items()
-	syringe.mz.show()
