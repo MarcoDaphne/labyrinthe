@@ -45,6 +45,6 @@ class Maze:
 
 
 if __name__ == "__main__":
-	maze = Maze()
-	maze.load()
-	maze.show()
+	labyrinth = Maze()
+	labyrinth.load()
+	labyrinth.show()
