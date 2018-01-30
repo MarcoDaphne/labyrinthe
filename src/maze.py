@@ -27,7 +27,7 @@ class Maze:
 					elif element == c.MACGYVER:
 						self.macgyver_location = i, j
 					elif element == c.GATEKEEPER:
-						self.end_location.append((i-1, j, i+1, j, i, j-1, i, j+1))
+						self.end_location.append(((i-1, j), (i+1, j, i, j-1, i, j+1)))
 		return self.structure, self.free_position, self.macgyver_location, self.end_location
 
 	def get(self, i, j):
@@ -37,6 +37,10 @@ class Maze:
 	def set(self, i, j, element):
 		"""Install an element on a maze position"""
 		self.structure[i][j] = element
+
+	def locate_macgyver(self, i, j):
+		"""locate MacGyver after each move"""
+		self.macgyver_location = i, j
 
 	def show(self):
 		"""Displays the maze"""

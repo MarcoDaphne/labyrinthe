@@ -8,7 +8,7 @@ import constant as c
 
 class Syringe:
 	def __init__(self, mz):
-		self.mz = maze
+		self.mz = mz
 		self.items = [c.NEEDLE, c.TUBE, c.ETHER]
 
 	def find_random_position(self):
@@ -26,10 +26,10 @@ class Syringe:
 	def place_items(self):
 		"""Place three objects randomly on the maze""" 
 		for element in self.items:
-			x, y = self.find_random_position()
-			self.mz.set(x, y, element)
+			i, j = self.find_random_position()
+			self.mz.set(i, j, element)
 
 
 if __name__ == "__main__":
-	fragment = Syringe()
+	fragment = Syringe(mz)
 	fragment.place_items()
