@@ -1,5 +1,5 @@
-#! /usr/bin/env/ python3
-# Coding : utf-8
+#! /usr/bin/env python3
+# Coding: utf-8
 
 import random
 
@@ -13,7 +13,7 @@ class Syringe:
 
 	def find_random_position(self):
 		"""Return a random position"""
-		structure = self.mz.structure
+		structure = self.mz.schema
 		passage = self.mz.free_position
 		i = -1
 		j = -1
