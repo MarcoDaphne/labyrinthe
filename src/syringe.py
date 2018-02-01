@@ -10,6 +10,7 @@ class Syringe:
 	def __init__(self, mz):
 		self.mz = mz
 		self.items = [c.NEEDLE, c.TUBE, c.ETHER]
+		self.chosen_positions = []
 
 	def find_random_position(self):
 		"""Return a random position"""
