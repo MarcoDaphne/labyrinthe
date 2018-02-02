@@ -7,10 +7,10 @@ import constant as c
 
 class Maze:
 	def __init__(self):
-		self.schema = []
-		self.free_position = []
+		self.structure = []
+		self.free_positions = []
 		self.macgyver_location = ()
-		self.end_location = []
+		self.end_locations = []
 
 	def load(self, data="data", data_file="schema.txt"):
 		"""Loads a maze from a text file and retrieves useful positions""" 
@@ -20,23 +20,23 @@ class Maze:
 			for i, line in enumerate(f):
 				clean_line = line.strip()
 				liste = list(clean_line)
-				self.schema.append(liste)
+				self.structure.append(liste)
 				for j, element in enumerate(liste):
 					if element == c.FREE:
-						self.free_position.append((i, j))
+						self.free_positions.append((i, j))
 					elif element == c.MACGYVER:
 						self.macgyver_location = i, j
 					elif element == c.GATEKEEPER:
-						self.end_location.append(((i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1)))
-		return self.schema, self.free_position, self.macgyver_location, self.end_location
+						self.end_locations.append(((i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1)))
+		return self.structure, self.free_positions, self.macgyver_location, self.end_locations
 
 	def get(self, i, j):
 		"""Gets a position in the maze"""
-		return self.schema[i][j]
+		return self.structure[i][j]
 
 	def set(self, i, j, element):
 		"""Install an element on a maze position"""
-		self.schema[i][j] = element
+		self.structure[i][j] = element
 
 	def locate_macgyver(self, i, j):
 		"""locate MacGyver after each move"""
@@ -44,11 +44,11 @@ class Maze:
 
 	def show(self):
 		"""Displays the maze"""
-		for line in self.schema:
+		for line in self.structure:
 			print(line)
 
 
 if __name__ == "__main__":
-	labyrinth = Maze()
-	labyrinth.load()
-	labyrinth.show()
+	maze = Maze()
+	maze.load()
+	maze.show()

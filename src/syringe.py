@@ -11,11 +11,13 @@ class Syringe:
 		self.mz = mz
 		self.items = [c.NEEDLE, c.TUBE, c.ETHER]
 		self.chosen_positions = []
+		self.items_positions = []
 
 	def find_random_position(self):
 		"""Return a random position"""
-		structure = self.mz.schema
-		passage = self.mz.free_position
+		structure = self.mz.structure
+		passage = self.mz.free_positions
+		end_positions = self.mz.end_locations
 		i = -1
 		j = -1
 		while (i, j) not in passage:
@@ -32,5 +34,8 @@ class Syringe:
 
 
 if __name__ == "__main__":
-	fragment = Syringe(mz)
-	fragment.place_items()
+	maze = mz.Maze()
+	syringe = Syringe(maze)
+	maze.load()
+	syringe.place_items()
+	maze.show()

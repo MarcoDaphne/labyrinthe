@@ -4,6 +4,7 @@
 import maze as mz
 import syringe as sy
 import macgyver as mg
+import constant as c
 
 class Game:
 	def __init__(self, mz, sy, mg):
@@ -54,23 +55,23 @@ class Game:
 
 	def start(self):
 		"""Launch the game"""
-		display = self.maze.show()
+		loading = self.mz.load()
+		display = self.mz.show()
 		play = self.get_answer()
 		end = False
 		if play == c.YES:
-			set_items = self.syringe.place_items()
+			set_items = self.sy.place_items()
 			while not end:
-				display = self.maze.show()
+				display = self.mz.show()
 				notify_pickup = self.show_pickup()
 				choice = self.choose_direction()
 				end = self.move()
 
 
 def main():
-	maze = Maze()
-	maze.load()
-	syringe = Syringe(maze)
-	macgyver = Character(maze, syringe)
+	maze = mz.Maze()
+	syringe = sy.Syringe(maze)
+	macgyver = mg.Macgyver(maze, syringe)
 	game = Game(maze, syringe, macgyver)
 	game.start()
 
