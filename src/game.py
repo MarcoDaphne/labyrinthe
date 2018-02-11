@@ -1,4 +1,4 @@
-#! /usr/bin/env/python3
+#! /usr/bin/env python3
 # Coding : utf-8
 
 import maze as mz
@@ -16,8 +16,13 @@ class Game:
 
 	def get_answer(self):
 		"""Asks the user if he wants to play"""
-		self.want_play = input("==> Souhaitez-vous jouer au labyrinthe ? ('o' / 'n')\n")
+		self.want_play = input("==> Bonjour !!!\n==>Souhaitez-vous jouer au labyrinthe ? ('o' / 'n')\n")
 		return self.want_play
+
+	def settlement(self):
+		"""Inform the user about the rules of the game"""
+		print("==> Pour jouer, il vous suffit de déplacer MacGyver(M) pour récupérer les objets(N, T, E).")
+		print("==> Ces objets serviront à la création d'une seringe pour endormir Murdoc(G).")
 
 	def choose_direction(self):
 		"""Asks the user in which direction he wants to move MacGyver""" 
@@ -58,6 +63,7 @@ class Game:
 		loading = self.mz.load()
 		display = self.mz.show()
 		play = self.get_answer()
+		rules = self.settlement()
 		end = False
 		if play == c.YES:
 			set_items = self.sy.place_items()
