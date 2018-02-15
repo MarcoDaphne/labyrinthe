@@ -3,7 +3,7 @@
 
 import maze as mz
 import syringe as sy
-import constant as c
+import constants as c
 
 class Macgyver:
 	def __init__(self, mz, sy):

@@ -4,7 +4,7 @@
 import random
 
 import maze as mz
-import constant as c
+import constants as c
 
 class Syringe:
 	def __init__(self, mz):

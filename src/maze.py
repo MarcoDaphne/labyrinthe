@@ -3,7 +3,7 @@
 
 import os
 
-import constant as c
+import constants as c
 
 class Maze:
 	def __init__(self):

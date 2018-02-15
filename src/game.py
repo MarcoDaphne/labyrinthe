@@ -4,7 +4,7 @@
 import maze as mz
 import syringe as sy
 import macgyver as mg
-import constant as c
+import constants as c
 
 class Game:
 	def __init__(self, mz, sy, mg):
