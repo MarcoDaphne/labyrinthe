@@ -29,9 +29,12 @@ class GameGui:
 		pygame.init()
 		surface = pygame.display.set_mode((480, 640))
 		p_wall = pygame.image.load(self.seek("wall.png")).convert_alpha()
-		p_floor = pygame.image.load(self.seek("grass.png")).convert()
+		p_floor = pygame.image.load(self.seek("grass.png")).convert_alpha()
 		p_macgyver = pygame.image.load(self.seek("macgyver.png")).convert_alpha()
 		p_gatekeeper = pygame.image.load(self.seek("murdoc.png")).convert_alpha()
+		p_needle = pygame.image.load(self.seek("needle.png")).convert_alpha()
+		p_tube = pygame.image.load(self.seek("tube.png")).convert_alpha()
+		p_ether = pygame.image.load(self.seek("ether.png")).convert_alpha()
 				
 		i = 160
 		for line in self.mz.structure:
@@ -43,6 +46,12 @@ class GameGui:
 					surface.blit(p_macgyver, (j, i))
 				elif element == 'G':
 					surface.blit(p_gatekeeper, (j, i))
+				elif element == 'N':
+					surface.blit(p_needle, (j, i))
+				elif element == 'T':
+					surface.blit(p_tube, (j, i))
+				elif element == 'E':
+					surface.blit(p_ether, (j, i))
 				else:
 					surface.blit(p_wall, (j, i))
 				j += 32
@@ -56,6 +65,8 @@ class GameGui:
 			pygame.display.flip()
 		pygame.quit()
 
+	#def
+
 if __name__ == "__main__":
 	maze = mz.Maze()
 	maze.load()
@@ -63,4 +74,5 @@ if __name__ == "__main__":
 	macgyver = mg.Macgyver(maze, syringe)
 	game = g.Game(maze, syringe, macgyver)
 	gamegui = GameGui(maze, syringe, macgyver, game)
+	syringe.place_items()
 	gamegui.graph_maze()
