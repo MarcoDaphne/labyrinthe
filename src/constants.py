@@ -1,4 +1,5 @@
 MACGYVER = 'M'
+MACGYVER_IMG = 'macgyver.png'
 GATEKEEPER = 'G'
 WALL = '#'
 FREE = ' '

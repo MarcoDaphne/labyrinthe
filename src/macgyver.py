@@ -30,13 +30,13 @@ class Macgyver:
 		elif len(self.bag) == len(self.sy.items) and (i, j) in self.mz.end_locations[0]:
 			self.move_and_locate(i, j)
 			#self.mz.show()
-			print("==> Bravo!!! Vous avez vaincu de Murdoc!!!")
-			return True
+			#print("==> Bravo!!! Vous avez vaincu de Murdoc!!!")
+			return 'WON'
 		elif (i, j) in self.mz.end_locations[0]:
 			self.move_and_locate(i, j)
 			#self.mz.show()
-			print("==> Vous avez perdu...")
-			return True		
+			#print("==> Vous avez perdu...")
+			return 'LOST'	
 		else:	
 			self.move_and_locate(i, j)
 

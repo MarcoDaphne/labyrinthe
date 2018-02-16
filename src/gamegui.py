@@ -3,6 +3,7 @@
 
 import os
 import pygame
+import time
 
 import maze as mz
 import syringe as sy
@@ -13,10 +14,10 @@ import constants as c
 
 class GameGui:
 	def __init__(self, mz, sy, mg, g):
-		self.mz = mz
-		self.sy = sy
-		self.mg = mg
-		self.g = g
+		self.maze = mz.Maze()
+
+		self.macg = mg
+		self.game = g
 
 	def seek(self, picture):
 		"""Seek and return a picture"""
@@ -42,7 +43,7 @@ class GameGui:
 		p_ether = pygame.image.load(self.seek("ether.png")).convert_alpha()
 				
 		i = 60
-		for line in self.mz.structure:
+		for line in self.maze.structure:
 			j = 0
 			for element in line:
 				if element == ' ':
@@ -62,18 +63,24 @@ class GameGui:
 				j += 32
 			i += 32
 
-	def want_play(self):
+	def play(self):
 		self.graph_maze()
 		end = False
 		while not end:
 			for event in pygame.event.get():
 				if event.type == pygame.KEYDOWN:
-					if event.key == pygame.K_o:
-						self.sy.place_items()
-						self.graph_maze()
+					if event.key == pygame.K_DOWN:
+						self.macg.step_down()
+						#self.sy.place_items()
+					self.graph_maze()
+					#if end == 'WON':
+						#Gagné (milieu labyrinthe)
+					#elif end == 'LOST':
+						#Perdu
 				elif event.type == pygame.QUIT:
 					end = True
 			pygame.display.flip()
+		time.sleep(5)
 		pygame.quit()
 
 
@@ -85,4 +92,4 @@ if __name__ == "__main__":
 	game = g.Game(maze, syringe, macgyver)
 	gamegui = GameGui(maze, syringe, macgyver, game)
 	#syringe.place_items()
-	gamegui.want_play()
+	gamegui.play()
