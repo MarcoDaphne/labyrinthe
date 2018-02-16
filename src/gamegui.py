@@ -24,10 +24,15 @@ class GameGui:
 		path_to_file = os.path.join(directory, "pictures", picture)
 		return path_to_file
 
+	def title(self, surface):
+		pygame.draw.rect(surface, (255, 153, 102), (0, 0, 480, 60))
+		# Possible Ecriture colorée sur fond noir
+
 	def graph_maze(self):
 		"""Displays the maze in graphical mode"""
 		pygame.init()
 		surface = pygame.display.set_mode((480, 640))
+		self.title(surface)
 		p_wall = pygame.image.load(self.seek("wall.png")).convert_alpha()
 		p_floor = pygame.image.load(self.seek("grass.png")).convert_alpha()
 		p_macgyver = pygame.image.load(self.seek("macgyver.png")).convert_alpha()
@@ -36,7 +41,7 @@ class GameGui:
 		p_tube = pygame.image.load(self.seek("tube.png")).convert_alpha()
 		p_ether = pygame.image.load(self.seek("ether.png")).convert_alpha()
 				
-		i = 160
+		i = 60
 		for line in self.mz.structure:
 			j = 0
 			for element in line:
@@ -57,15 +62,20 @@ class GameGui:
 				j += 32
 			i += 32
 
+	def want_play(self):
+		self.graph_maze()
 		end = False
 		while not end:
 			for event in pygame.event.get():
 				if event.type == pygame.KEYDOWN:
+					if event.key == pygame.K_o:
+						self.sy.place_items()
+						self.graph_maze()
+				elif event.type == pygame.QUIT:
 					end = True
 			pygame.display.flip()
 		pygame.quit()
 
-	#def
 
 if __name__ == "__main__":
 	maze = mz.Maze()
@@ -74,5 +84,5 @@ if __name__ == "__main__":
 	macgyver = mg.Macgyver(maze, syringe)
 	game = g.Game(maze, syringe, macgyver)
 	gamegui = GameGui(maze, syringe, macgyver, game)
-	syringe.place_items()
-	gamegui.graph_maze()
+	#syringe.place_items()
+	gamegui.want_play()
