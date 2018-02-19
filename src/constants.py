@@ -1,5 +1,5 @@
 MACGYVER = 'M'
-MACGYVER_IMG = 'macgyver.png'
+MACG_IMG = 'macgyver.png'
 GATEKEEPER = 'G'
 MURDOC_IMG = 'murdoc.png'
 WALL = '#'
