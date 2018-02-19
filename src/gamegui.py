@@ -3,20 +3,20 @@
 
 import os
 import pygame
+import time
 
 import maze as mz
 import syringe as sy
 import macgyver as mg
-import game as g
 import constants as c
 
 
 class GameGui:
-	def __init__(self, mz, sy, mg, g):
-		self.mz = mz
-		self.sy = sy
+	def __init__(self, mz, sy, mg):
+		self.mz = mz 
+		self.sy = sy # (L'initialisation ne fonctionne pas et si ca fonctionne, self.maze.load() sera charger à chaque fois que self.graph_maze() sera chargé)
 		self.mg = mg
-		self.g = g
+		self.surface = ' ' # (Comment initialiser self.surface ? C'est la solution que j'ai trouvé pour ne pas dégradé l'image)
 
 	def seek(self, picture):
 		"""Seek and return a picture"""
@@ -24,65 +24,80 @@ class GameGui:
 		path_to_file = os.path.join(directory, "pictures", picture)
 		return path_to_file
 
-	def title(self, surface):
-		pygame.draw.rect(surface, (255, 153, 102), (0, 0, 480, 60))
-		# Possible Ecriture colorée sur fond noir
+	def presentation(self):
+		"""Customize the icon and title of the window"""
+		pict_icon = pygame.image.load(self.seek(c.ICON_IMG))
+		pygame.display.set_icon(pict_icon)
+		pygame.display.set_caption(c.TITLE)
 
 	def graph_maze(self):
 		"""Displays the maze in graphical mode"""
 		pygame.init()
-		surface = pygame.display.set_mode((480, 640))
-		self.title(surface)
-		p_wall = pygame.image.load(self.seek("wall.png")).convert_alpha()
-		p_floor = pygame.image.load(self.seek("grass.png")).convert_alpha()
-		p_macgyver = pygame.image.load(self.seek("macgyver.png")).convert_alpha()
-		p_gatekeeper = pygame.image.load(self.seek("murdoc.png")).convert_alpha()
-		p_needle = pygame.image.load(self.seek("needle.png")).convert_alpha()
-		p_tube = pygame.image.load(self.seek("tube.png")).convert_alpha()
-		p_ether = pygame.image.load(self.seek("ether.png")).convert_alpha()
+		self.surface = pygame.display.set_mode((480, 480))
+		self.presentation()
+		pict_wall = pygame.image.load(self.seek(c.WALL_IMG)).convert_alpha()
+		pict_floor = pygame.image.load(self.seek(c.FLOOR_IMG)).convert_alpha()
+		pict_macgyver = pygame.image.load(self.seek(c.MACGYVER_IMG)).convert_alpha()
+		pict_gatekeeper = pygame.image.load(self.seek(c.MURDOC_IMG)).convert_alpha()
+		pict_needle = pygame.image.load(self.seek(c.NEEDLE_IMG)).convert_alpha()
+		pict_tube = pygame.image.load(self.seek(c.TUBE_IMG)).convert_alpha()
+		pict_ether = pygame.image.load(self.seek(c.ETHER_IMG)).convert_alpha()
 				
-		i = 60
+		i = 0
 		for line in self.mz.structure:
 			j = 0
 			for element in line:
-				if element == ' ':
-					surface.blit(p_floor, (j, i))
-				elif element == 'M':
-					surface.blit(p_macgyver, (j, i))
-				elif element == 'G':
-					surface.blit(p_gatekeeper, (j, i))
-				elif element == 'N':
-					surface.blit(p_needle, (j, i))
-				elif element == 'T':
-					surface.blit(p_tube, (j, i))
-				elif element == 'E':
-					surface.blit(p_ether, (j, i))
+				if element == c.FREE:
+					self.surface.blit(pict_floor, (j, i))
+				elif element == c.MACGYVER:
+					self.surface.blit(pict_macgyver, (j, i))
+				elif element == c.GATEKEEPER:
+					self.surface.blit(pict_gatekeeper, (j, i))
+				elif element == c.NEEDLE:
+					self.surface.blit(pict_needle, (j, i))
+				elif element == c.TUBE:
+					self.surface.blit(pict_tube, (j, i))
+				elif element == c.ETHER:
+					self.surface.blit(pict_ether, (j, i))
 				else:
-					surface.blit(p_wall, (j, i))
+					self.surface.blit(pict_wall, (j, i))
 				j += 32
 			i += 32
 
-	def want_play(self):
+	def play(self):
+		"""Launch the game"""
 		self.graph_maze()
+		pict_win = pygame.image.load(self.seek(c.WIN_IMG)).convert()
+		pict_loose = pygame.image.load(self.seek(c.LOOSE_IMG)).convert()
 		end = False
 		while not end:
 			for event in pygame.event.get():
 				if event.type == pygame.KEYDOWN:
-					if event.key == pygame.K_o:
-						self.sy.place_items()
-						self.graph_maze()
+					if event.key == pygame.K_UP:
+						end = self.mg.step_up()
+					elif event.key == pygame.K_DOWN:
+						end = self.mg.step_down()
+					elif event.key == pygame.K_LEFT:
+						end = self.mg.step_left()
+					elif event.key == pygame.K_RIGHT:
+						end = self.mg.step_right()
+					self.graph_maze()
+					if end == c.WIN:
+						self.surface.blit(pict_win, (0, 0))
+					elif end == c.LOOSE:
+						self.surface.blit(pict_loose, (0, 0))
 				elif event.type == pygame.QUIT:
-					end = True
+					end = True #(Est ce que je peux mettre exit() à cause du timer ?)
 			pygame.display.flip()
+		time.sleep(5)	
 		pygame.quit()
 
 
 if __name__ == "__main__":
 	maze = mz.Maze()
-	maze.load()
 	syringe = sy.Syringe(maze)
 	macgyver = mg.Macgyver(maze, syringe)
-	game = g.Game(maze, syringe, macgyver)
-	gamegui = GameGui(maze, syringe, macgyver, game)
-	#syringe.place_items()
-	gamegui.want_play()
+	gamegui = GameGui(maze, syringe, macgyver)
+	maze.load()
+	syringe.place_items()
+	gamegui.play()
