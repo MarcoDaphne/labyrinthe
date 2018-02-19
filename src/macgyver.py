@@ -36,7 +36,7 @@ class Macgyver:
 			self.move_and_locate(i, j)
 			#self.mz.show()
 			print("==> Murdoc a tué MacGyver...")
-			return c.LOOSE		
+			return c.LOOSE
 		else:	
 			self.move_and_locate(i, j)
 

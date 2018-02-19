@@ -87,9 +87,9 @@ class GameGui:
 					elif end == c.LOOSE:
 						self.surface.blit(pict_loose, (0, 0))
 				elif event.type == pygame.QUIT:
-					end = True #(Est ce que je peux mettre exit() à cause du timer ?)
+					end = True # (Est ce que je peux mettre exit() à cause du timer ?)
 			pygame.display.flip()
-		time.sleep(5)	
+		time.sleep(5)
 		pygame.quit()
 
 
