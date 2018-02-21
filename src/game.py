@@ -1,6 +1,8 @@
 #! /usr/bin/env python3
 # Coding : utf-8
 
+"""-tc- Ajouter une docstring de fichier"""
+
 import maze as mz
 import syringe as sy
 import macgyver as mg
@@ -8,7 +10,10 @@ import constants as c
 
 
 class Game:
+    """-tc- Ajouter une docstring de classe"""
+
     def __init__(self, mz, sy, mg):
+        """-tc- Ajouter une docstring pour chaque fichier"""
         self.mz = mz
         self.sy = sy
         self.mg = mg

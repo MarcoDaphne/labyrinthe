@@ -1,9 +1,13 @@
 MACGYVER = 'M'
+# -tc- Pour qu'on voit la relation entre les deux constantes, il serait mieux de nommer cette constante
+# -tc- MACGYVER_IMG
 MACG_IMG = 'macgyver.png'
 GATEKEEPER = 'G'
+# -tc- Pour faire la relation avec la constante dessus, plutôt utiliser 'GATEKEEPER_IMG'
 MURDOC_IMG = 'murdoc.png'
 WALL = '#'
 WALL_IMG = 'wall.png'
+# -tc- Du coup, il ferait plus de sens d'utiliser FLOOR
 FREE = ' '
 FLOOR_IMG = 'grass.png'
 NEEDLE = 'N'

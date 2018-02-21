@@ -1,13 +1,18 @@
 #! /usr/bin/env python3
 # Coding : utf-8
 
+"""-tc- Ajouter une docstring pour chaque fichier"""
+
 import maze as mz
 import syringe as sy
 import constants as c
 
 
 class Macgyver:
+    """-tc- Ajouter une docstring pour chaque classe"""
+
     def __init__(self, mz, sy):
+        """-tc- Ajouter une docstring pour chaque méthode, même les constructeurs"""
         self.mz = mz
         self.sy = sy
         self.bag = []
@@ -31,11 +36,13 @@ class Macgyver:
         elif len(self.bag) == len(self.sy.items) and (i, j) in self.mz.endl[0]:
             self.move_and_locate(i, j)
             # self.mz.show()
+            # -tc- On devrait éliminer ce print et le déplacer dans game.py
             print("==> Bravo!!! Vous avez endormi Murdoc!!!")
             return c.WIN
         elif (i, j) in self.mz.endl[0]:
             self.move_and_locate(i, j)
             # self.mz.show()
+            # -tc- On devrait éliminer ce print et le déplacer dans game.py
             print("==> Murdoc a tué MacGyver...")
             return c.LOOSE
         else:
