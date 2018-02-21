@@ -46,20 +46,21 @@ class GameGui:
         img_ether = pygame.image.load(self.seek(c.ETHER_IMG)).convert_alpha()
         for i, line in enumerate(self.mz.structure):
             for j, element in enumerate(line):
+                position = j * c.SPRITE_SIZE, i * c.SPRITE_SIZE
                 if element == c.FLOOR:
-                    self.surface.blit(img_floor, (j, i))
+                    self.surface.blit(img_floor, position)
                 elif element == c.MACGYVER:
-                    self.surface.blit(img_macg, (j, i))
+                    self.surface.blit(img_macg, position)
                 elif element == c.GATEKEEPER:
-                    self.surface.blit(img_murdoc, (i, j))
+                    self.surface.blit(img_murdoc, position)
                 elif element == c.NEEDLE:
-                    self.surface.blit(img_needle, (j, i))
+                    self.surface.blit(img_needle, position)
                 elif element == c.TUBE:
-                    self.surface.blit(img_tube, (j, i))
+                    self.surface.blit(img_tube, position)
                 elif element == c.ETHER:
-                    self.surface.blit(img_ether, (j, i))
+                    self.surface.blit(img_ether, position)
                 else:
-                    self.surface.blit(img_wall, (j, i))
+                    self.surface.blit(img_wall, position)
 
     def play(self):
         """Launch the game"""
