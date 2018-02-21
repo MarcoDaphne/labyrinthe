@@ -23,7 +23,7 @@ class Maze:
                 liste = list(clean_line)
                 self.structure.append(liste)
                 for j, element in enumerate(liste):
-                    if element == c.FREE:
+                    if element == c.FLOOR:
                         self.free_pos.append((i, j))
                     elif element == c.MACGYVER:
                         self.macgyver_location = i, j

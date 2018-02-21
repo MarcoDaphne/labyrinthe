@@ -30,13 +30,9 @@ class Macgyver:
             self.move_and_locate(i, j)
         elif len(self.bag) == len(self.sy.items) and (i, j) in self.mz.endl[0]:
             self.move_and_locate(i, j)
-            # self.mz.show()
-            print("==> Bravo!!! Vous avez endormi Murdoc!!!")
             return c.WIN
         elif (i, j) in self.mz.endl[0]:
             self.move_and_locate(i, j)
-            # self.mz.show()
-            print("==> Murdoc a tué MacGyver...")
             return c.LOOSE
         else:
             self.move_and_locate(i, j)
@@ -48,7 +44,7 @@ class Macgyver:
         get = self.mz.get(i - 1, j)
         endl = self.mz.endl[0]
         if get != c.WALL and (i, j) not in endl and 0 < i < len(strt):
-            self.mz.set(i, j, c.FREE)
+            self.mz.set(i, j, c.FLOOR)
             return self.pick_up_or_move(i - 1, j)
 
     def step_right(self):
@@ -58,7 +54,7 @@ class Macgyver:
         get = self.mz.get(i, j + 1)
         endl = self.mz.endl[0]
         if get != c.WALL and (i, j) not in endl and 0 < j < len(strt):
-            self.mz.set(i, j, c.FREE)
+            self.mz.set(i, j, c.FLOOR)
             return self.pick_up_or_move(i, j + 1)
 
     def step_down(self):
@@ -68,7 +64,7 @@ class Macgyver:
         get = self.mz.get(i + 1, j)
         endl = self.mz.endl[0]
         if get != c.WALL and (i, j) not in endl and 0 <= i < len(strt):
-            self.mz.set(i, j, c.FREE)
+            self.mz.set(i, j, c.FLOOR)
             return self.pick_up_or_move(i + 1, j)
 
     def step_left(self):
@@ -78,7 +74,7 @@ class Macgyver:
         get = self.mz.get(i, j - 1)
         endl = self.mz.endl[0]
         if get != c.WALL and (i, j) not in endl and 0 < j < len(strt):
-            self.mz.set(i, j, c.FREE)
+            self.mz.set(i, j, c.FLOOR)
             return self.pick_up_or_move(i, j - 1)
 
 

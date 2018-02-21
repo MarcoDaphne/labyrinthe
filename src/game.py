@@ -68,6 +68,12 @@ Vous avez {}/{} objets.
                 notify_pickup = self.show_pickup()
                 choice = self.choose_direction()
                 end = self.move()
+            if end == c.WIN:
+                display = self.mz.show()
+                print("\nBravo!!! \nVous avez endormi Murdoc.")
+            elif end == c.LOOSE:
+                display = self.mz.show()
+                print("\nMurdoc a tué MacGyver!!!")
 
 
 def main():

@@ -35,25 +35,23 @@ class GameGui:
     def graph_maze(self):
         """Displays the maze in graphical mode"""
         pygame.init()
-        self.surface = pygame.display.set_mode((480, 480))
+        self.surface = pygame.display.set_mode(c.WINDOW_SIZE)
         self.presentation()
         img_wall = pygame.image.load(self.seek(c.WALL_IMG)).convert_alpha()
         img_floor = pygame.image.load(self.seek(c.FLOOR_IMG)).convert_alpha()
-        img_macg = pygame.image.load(self.seek(c.MACG_IMG)).convert_alpha()
-        img_murdoc = pygame.image.load(self.seek(c.MURDOC_IMG)).convert_alpha()
+        img_macg = pygame.image.load(self.seek(c.MACGYVER_IMG)).convert_alpha()
+        img_murdoc = pygame.image.load(self.seek(c.GATEKEEPER_IMG)).convert_alpha()
         img_needle = pygame.image.load(self.seek(c.NEEDLE_IMG)).convert_alpha()
         img_tube = pygame.image.load(self.seek(c.TUBE_IMG)).convert_alpha()
         img_ether = pygame.image.load(self.seek(c.ETHER_IMG)).convert_alpha()
-        i = 0
-        for line in self.mz.structure:
-            j = 0
-            for element in line:
-                if element == c.FREE:
+        for i, line in enumerate(self.mz.structure):
+            for j, element in enumerate(line):
+                if element == c.FLOOR:
                     self.surface.blit(img_floor, (j, i))
                 elif element == c.MACGYVER:
                     self.surface.blit(img_macg, (j, i))
                 elif element == c.GATEKEEPER:
-                    self.surface.blit(img_murdoc, (j, i))
+                    self.surface.blit(img_murdoc, (i, j))
                 elif element == c.NEEDLE:
                     self.surface.blit(img_needle, (j, i))
                 elif element == c.TUBE:
@@ -62,8 +60,6 @@ class GameGui:
                     self.surface.blit(img_ether, (j, i))
                 else:
                     self.surface.blit(img_wall, (j, i))
-                j += 32
-            i += 32
 
     def play(self):
         """Launch the game"""
