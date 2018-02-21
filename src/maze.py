@@ -1,13 +1,18 @@
 #! /usr/bin/env python3
 # coding: utf-8
 
+"""-tc- Ajouter une docstring pour tous les fichiers"""
+
 import os
 
 import constants as c
 
 
 class Maze:
+    """-tc- Ajouter une docstring pour toutes les classes."""
+
     def __init__(self):
+        """-tc- Ajouter une docstring pour toutes les méthodes, même les constructeurs."""
         self.structure = []
         self.free_pos = []
         self.macgyver_location = ()
@@ -23,6 +28,7 @@ class Maze:
                 liste = list(clean_line)
                 self.structure.append(liste)
                 for j, element in enumerate(liste):
+                    # -tc- Il serait bien de renommer en c.FLOOR
                     if element == c.FREE:
                         self.free_pos.append((i, j))
                     elif element == c.MACGYVER:

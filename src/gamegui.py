@@ -1,6 +1,8 @@
 #! /usr/bin/env python3
 # Coding: utf-8
 
+"""-tc- Ajouter une docstring dans chaque fichier"""
+
 import os
 import pygame
 import time
@@ -12,7 +14,10 @@ import constants as c
 
 
 class GameGui:
+    """-tc- Ajouter une docstring pour chaque classe"""
+
     def __init__(self, mz, sy, mg):
+        """-tc- Ajouter une docstring pour chaque méthode"""
         self.mz = mz
         # (self.maze = mz.Maze) non fonctionnel)
         self.sy = sy
@@ -44,6 +49,8 @@ class GameGui:
         img_needle = pygame.image.load(self.seek(c.NEEDLE_IMG)).convert_alpha()
         img_tube = pygame.image.load(self.seek(c.TUBE_IMG)).convert_alpha()
         img_ether = pygame.image.load(self.seek(c.ETHER_IMG)).convert_alpha()
+        # -tc- Plutôt utiliser for i, line in enumerate(self.mz.structure) et multiplier par 32 avant les blit
+        # -tc- Plutôt que 32, utiliser une constante comme c.SPRITE_SIZE
         i = 0
         for line in self.mz.structure:
             j = 0
