@@ -38,7 +38,7 @@ class GameGui:
         img_wall = pygame.image.load(self.seek(c.WALL_IMG)).convert_alpha()
         img_floor = pygame.image.load(self.seek(c.FLOOR_IMG)).convert_alpha()
         img_macg = pygame.image.load(self.seek(c.MACGYVER_IMG)).convert_alpha()
-        img_murdoc = pygame.image.load(self.seek(c.GATEKEEPER_IMG)).convert_alpha()
+        img_murdoc = pygame.image.load(self.seek(c.MURDOC_IMG)).convert_alpha()
         img_needle = pygame.image.load(self.seek(c.NEEDLE_IMG)).convert_alpha()
         img_tube = pygame.image.load(self.seek(c.TUBE_IMG)).convert_alpha()
         img_ether = pygame.image.load(self.seek(c.ETHER_IMG)).convert_alpha()
@@ -49,7 +49,7 @@ class GameGui:
                     self.surface.blit(img_floor, position)
                 elif element == c.MACGYVER:
                     self.surface.blit(img_macg, position)
-                elif element == c.GATEKEEPER:
+                elif element == c.MURDOC:
                     self.surface.blit(img_murdoc, position)
                 elif element == c.NEEDLE:
                     self.surface.blit(img_needle, position)

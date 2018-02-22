@@ -27,7 +27,7 @@ class Maze:
                         self.free_pos.append((i, j))
                     elif element == c.MACGYVER:
                         self.macgyver_location = i, j
-                    elif element == c.GATEKEEPER:
+                    elif element == c.MURDOC:
                         self.endl.append(
                             ((i-1, j), (i+1, j), (i, j-1), (i, j+1)))
         return self.structure, self.free_pos, self.macgyver_location, self.endl

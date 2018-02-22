@@ -11,7 +11,6 @@ class Syringe:
     def __init__(self, mz):
         self.mz = mz
         self.items = [c.NEEDLE, c.TUBE, c.ETHER]
-        self.chosen_positions = []
 
     def find_random_positions(self):
         """Return a random position"""
@@ -19,14 +18,16 @@ class Syringe:
         end_positions = set(self.mz.endl[0])
         freeway = passage - end_positions
         chosen_positions = random.sample(freeway, len(self.items))
-        for position in chosen_positions:
-            return position
+        return chosen_positions
 
     def place_items(self):
         """Place three objects randomly on the maze"""
+        position = self.find_random_positions()
+        n = 0
         for item in self.items:
-            i, j = self.find_random_positions()
+            i, j = position[n]
             self.mz.set(i, j, item)
+            n += 1
 
 
 if __name__ == "__main__":
