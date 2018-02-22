@@ -42,8 +42,7 @@ class Macgyver:
         i, j = self.mz.macgyver_location
         strt = self.mz.structure
         get = self.mz.get(i - 1, j)
-        endl = self.mz.endl[0]
-        if get != c.WALL and (i, j) not in endl and 0 < i < len(strt):
+        if get != c.WALL and 0 < i < len(strt):
             self.mz.set(i, j, c.FLOOR)
             return self.pick_up_or_move(i - 1, j)
 
@@ -52,8 +51,7 @@ class Macgyver:
         i, j = self.mz.macgyver_location
         strt = self.mz.structure
         get = self.mz.get(i, j + 1)
-        endl = self.mz.endl[0]
-        if get != c.WALL and (i, j) not in endl and 0 < j < len(strt):
+        if get != c.WALL and 0 < j < len(strt):
             self.mz.set(i, j, c.FLOOR)
             return self.pick_up_or_move(i, j + 1)
 
@@ -62,8 +60,7 @@ class Macgyver:
         i, j = self.mz.macgyver_location
         strt = self.mz.structure
         get = self.mz.get(i + 1, j)
-        endl = self.mz.endl[0]
-        if get != c.WALL and (i, j) not in endl and 0 <= i < len(strt):
+        if get != c.WALL and 0 <= i < len(strt):
             self.mz.set(i, j, c.FLOOR)
             return self.pick_up_or_move(i + 1, j)
 
@@ -72,8 +69,7 @@ class Macgyver:
         i, j = self.mz.macgyver_location
         strt = self.mz.structure
         get = self.mz.get(i, j - 1)
-        endl = self.mz.endl[0]
-        if get != c.WALL and (i, j) not in endl and 0 < j < len(strt):
+        if get != c.WALL and 0 < j < len(strt):
             self.mz.set(i, j, c.FLOOR)
             return self.pick_up_or_move(i, j - 1)
 

@@ -14,11 +14,9 @@ import constants as c
 class GameGui:
     def __init__(self, mz, sy, mg):
         self.mz = mz
-        # (self.maze = mz.Maze) non fonctionnel)
         self.sy = sy
         self.mg = mg
-        self.surface = ' '
-        # (Comment initialiser self.surface ?)
+        self.surface = None
 
     def seek(self, picture):
         """Seek and return a picture"""
@@ -62,11 +60,25 @@ class GameGui:
                 else:
                     self.surface.blit(img_wall, position)
 
+    def show(self, size, written, color, location):
+        """Show informations"""
+        font = pygame.font.Font(None, size)
+        text = written
+        ren = font.render(text, 1, color)
+        return self.surface.blit(ren, location)
+
+    def counter(self):
+        """Show objects counter"""
+        items = len(self.sy.items)
+        bag = len(self.mg.bag)
+        written = "Picked Objects : {} / {}".format(bag, items)
+        return self.show(c.COUNT_SIZ, written, c.COUNT_COL, c.COUNT_LOC)
+
     def play(self):
         """Launch the game"""
+        self.sy.place_items()
         self.graph_maze()
-        pict_win = pygame.image.load(self.seek(c.WIN_IMG)).convert()
-        pict_loose = pygame.image.load(self.seek(c.LOOSE_IMG)).convert()
+        self.counter()
         end = False
         while not end:
             for event in pygame.event.get():
@@ -80,13 +92,15 @@ class GameGui:
                     elif event.key == pygame.K_RIGHT:
                         end = self.mg.step_right()
                     self.graph_maze()
+                    self.counter()
+                    if len(self.mg.bag) == len(self.sy.items):
+                        self.show(c.SY_SIZ, c.SY_WRI, c.SY_COL, c.SY_LOC)
                     if end == c.WIN:
-                        self.surface.blit(pict_win, (0, 0))
+                        self.show(c.WIN_SIZ, c.WIN_WRI, c.WIN_COL, c.WIN_LOC)
                     elif end == c.LOOSE:
-                        self.surface.blit(pict_loose, (0, 0))
+                        self.show(c.LOS_SIZ, c.LOS_WRI, c.LOS_COL, c.LOS_LOC)
                 elif event.type == pygame.QUIT:
-                    end = True
-                    # (Est ce que je peux mettre exit() à cause du timer ?)
+                    exit()
             pygame.display.flip()
         time.sleep(5)
         pygame.quit()
@@ -98,5 +112,4 @@ if __name__ == "__main__":
     macgyver = mg.Macgyver(maze, syringe)
     gamegui = GameGui(maze, syringe, macgyver)
     maze.load()
-    syringe.place_items()
     gamegui.play()
