@@ -23,11 +23,9 @@ class Syringe:
     def place_items(self):
         """Place three objects randomly on the maze"""
         position = self.find_random_positions()
-        n = 0
-        for item in self.items:
+        for n, item in enumerate(self.items):
             i, j = position[n]
             self.mz.set(i, j, item)
-            n += 1
 
 
 if __name__ == "__main__":
