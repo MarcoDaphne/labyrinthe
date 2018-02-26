@@ -1,12 +1,19 @@
 MURDOC'S MAZE
 
-1 - Ouvrir terminal
+1 - Open terminal:
 UNIX: Ctrl + Alt + T
-Windows: Window + R puis taper cmd.exe
+Windows: Window + R, type cmd.exe
 
-2 - Activer l'environnement virtuel
+2 - Install virtual environment:
+UNIX & Windows: virtualenv env
+
+3 - Activate virtual environment:
 UNIX: ~$ source env/bin/activate
-Windows: >
+Windows: > env\Scripts\activate
 
-3 - Lancer le jeu
+4 - Install prerequisites:
+UNIX & Windows: pip install -r requirements.txt
+
+5 - Launch the game:
 UNIX: ~$ python3 src/gamegui.py
+Windows: > py src/gamegui.py
