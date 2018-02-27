@@ -1,6 +1,8 @@
 #! /usr/bin/env python3
 # Coding: utf-8
 
+"""This Module is responsible for placing random objects in the maze."""
+
 import random
 
 import maze as mz
@@ -8,12 +10,32 @@ import constants as c
 
 
 class Syringe:
+    """This class represents a decomposed syringe.
+
+    Each piece is randomly placed in the maze.
+
+    """
     def __init__(self, mz):
+        """Constructor
+
+        Params:
+            mz: Instance of class Maze
+
+        """
         self.mz = mz
         self.items = [c.NEEDLE, c.TUBE, c.ETHER]
 
     def find_random_positions(self):
-        """Return a random position"""
+        """Find random positions
+
+        Transform lists into sets
+        Extract free positions in freeway
+        Choose positions (from the number of objects in self.items) in freeway
+
+        return:
+            list: A list of tuples
+
+        """
         passage = set(self.mz.free_pos)
         end_positions = set(self.mz.endl[0])
         freeway = passage - end_positions
@@ -21,7 +43,14 @@ class Syringe:
         return chosen_positions
 
     def place_items(self):
-        """Place three objects randomly on the maze"""
+        """Place objects randomly on the maze
+
+        Get the list of tuples in find_random_positions()
+        According to the number of objects in items
+        Get a position in list of tuples
+        Place the object accordind to this position
+
+        """
         position = self.find_random_positions()
         for n, item in enumerate(self.items):
             i, j = position[n]

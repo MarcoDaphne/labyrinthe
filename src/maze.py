@@ -1,12 +1,7 @@
 #! /usr/bin/env python3
 # coding: utf-8
 
-"""
-Module attend to load a text file(containing a maze drawing).
-Scan each line of the file to retrieve key informations,
-for attributes and methods in the class.
-Displays a maze
-"""
+"""This module is responsible for displaying a labyrinth."""
 
 import os
 
@@ -14,36 +9,35 @@ import constants as c
 
 
 class Maze:
-    """Create a labyrinth from a text file"""
+    """This Class create a labyrinth from a text file containing a maze drawing.
+
+    Retrieving the positions of some key elements of the project.
+
+    """
     def __init__(self):
         """Constructor"""
         self.structure = []
-        """Empty list: Will contain the lists forming the maze"""
         self.free_pos = []
-        """Empty list: Will contain the free positions"""
         self.macgyver_location = ()
-        """Empty tuple: Will contain Macgyver position"""
         self.endl = []
-        """Empty list: Will contain the positions determining
-        the end of the game
-        """
 
     def load(self, data="data", data_file="schema.txt"):
-        """Load a maze from a text file
+        """Load a maze from a text file.
+
         Scan each line of the text file and incrementing i,
         Append each line in list,
         Append the lists in list (self.structure).
         Scan each character in lists and incrementing j,
         Append each free charater "space" in list (self.free_pos).
         Get "M" position (i, j) back in a tuple (self.macgyver_location).
-        Append all positions around "G" in list (self.endl)
+        Append all positions around "G" in list (self.endl).
 
-        Args:
+        Params:
             data: Directory containing the text file
             data_file: file containing the maze drawing
 
         returns:
-            list: List of lists in the .txt file
+            list: List of lists
             list: List of free positions
             tuple: Macgyver position
             list: List of end game positions
@@ -69,7 +63,7 @@ class Maze:
     def get(self, i, j):
         """Get a position in self.structure
 
-        Args:
+        Params:
             i (int): integer representing one of the self.structure lists
             j (int): integer representing the index of a list
 
@@ -82,7 +76,7 @@ class Maze:
     def set(self, i, j, element):
         """Install an element on a maze position
 
-        Args:
+        Params:
             i (int): integer representing one of the self.structure lists
             j (int): integer representing the index of a list
             element (str): Change a character of the (i, j) position
@@ -93,7 +87,7 @@ class Maze:
     def locate_macgyver(self, i, j):
         """locate MacGyver after each move
 
-        Args:
+        Params:
             i (int): integer representing one of the self.structure lists
             j (int): integer representing the index of a list
 

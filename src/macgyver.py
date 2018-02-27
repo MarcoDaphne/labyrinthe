@@ -5,20 +5,58 @@ import maze as mz
 import syringe as sy
 import constants as c
 
+"""This module is responsible for determining the possibilities of MacGyver"""
+
 
 class Macgyver:
+    """This class creates MacGyver's movements
+
+    Go up, down, left, right, pick up, lose or win.
+
+    """
     def __init__(self, mz, sy):
+        """Constructor
+
+        params:
+            mz: Instance of class Maze
+            sy: Instance of class Syringe
+
+        """
         self.mz = mz
         self.sy = sy
         self.bag = []
 
     def move_and_locate(self, i, j):
-        """Move then locate MacGyver sur le labyrinthe"""
+        """Move then locate MacGyver sur le labyrinthe
+
+        Params:
+            i (int): Ordinate of maze
+            j (int): Abscissa of maze
+
+        """
         self.mz.set(i, j, c.MACGYVER)
         self.mz.locate_macgyver(i, j)
 
     def pick_up_or_move(self, i, j):
-        """Retrieves objects if existing or moves"""
+        """Retrieves objects if existing or moves
+
+        According to the movement,
+        Check if there is an object,
+        Pick it up if yes,
+        Otherwise continue
+        Check if all items in the bag and if MacGyver is in front of Murdoc,
+        Won if so,
+        if not Lose.
+
+        Params:
+            i (int): Ordinate of maze
+            j (int): Ordinate of maze
+
+        Return:
+            str: If you win
+            str: If you lose
+
+        """
         if self.mz.get(i, j) == c.NEEDLE:
             self.bag.append(c.NEEDLE)
             self.move_and_locate(i, j)
@@ -38,7 +76,17 @@ class Macgyver:
             self.move_and_locate(i, j)
 
     def step_up(self):
-        """Move Macgyver one position up"""
+        """Move Macgyver one position up
+
+        Check if the position above MacGyver's location is not a wall,
+        or out of the maze. If this is not the case replace the MacGyver's
+        location with a blank space and return self.pick_up_or_move() with
+        the position above as the parameter.
+
+        Return:
+            str: Return value of the (self.pick_up_or_move()) method
+
+        """
         i, j = self.mz.macgyver_location
         strt = self.mz.structure
         get = self.mz.get(i - 1, j)
@@ -47,7 +95,17 @@ class Macgyver:
             return self.pick_up_or_move(i - 1, j)
 
     def step_right(self):
-        """Move Macgyver one position to the right"""
+        """Move Macgyver one position to the right
+
+        Check if the position to the right MacGyver's location is not a wall,
+        or out of the maze. If this is not the case replace the MacGyver's
+        location with a blank space and return self.pick_up_or_move() with
+        the position to the right as the parameter.
+
+        Return:
+            str: Return value of the (self.pick_up_or_move()) method
+
+        """
         i, j = self.mz.macgyver_location
         strt = self.mz.structure
         get = self.mz.get(i, j + 1)
@@ -56,7 +114,17 @@ class Macgyver:
             return self.pick_up_or_move(i, j + 1)
 
     def step_down(self):
-        """Move Macgyver one position down"""
+        """Move Macgyver one position down
+
+        Check if the position below MacGyver's location is not a wall,
+        or out of the maze. If this is not the case replace the MacGyver's
+        location with a blank space and return self.pick_up_or_move() with
+        the position below as the parameter.
+
+        Return:
+            str: Return value of the (self.pick_up_or_move()) method
+
+        """
         i, j = self.mz.macgyver_location
         strt = self.mz.structure
         get = self.mz.get(i + 1, j)
@@ -65,7 +133,17 @@ class Macgyver:
             return self.pick_up_or_move(i + 1, j)
 
     def step_left(self):
-        """Move Macgyver one position to the left"""
+        """Move Macgyver one position to the left
+
+        Check if the position to the right MacGyver's location is not a wall,
+        or out of the maze. If this is not the case replace the MacGyver's
+        location with a blank space and return self.pick_up_or_move() with
+        the position to the right as the parameter.
+
+        Return:
+            str: Return value of the (self.pick_up_or_move()) method
+
+        """
         i, j = self.mz.macgyver_location
         strt = self.mz.structure
         get = self.mz.get(i, j - 1)
