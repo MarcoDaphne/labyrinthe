@@ -102,7 +102,7 @@ class GameGui:
                 elif event.type == pygame.QUIT:
                     exit()
             pygame.display.flip()
-        time.sleep(5)
+        time.sleep(3)
         pygame.quit()
 
 
