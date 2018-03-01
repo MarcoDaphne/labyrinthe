@@ -7,26 +7,27 @@ import os
 import pygame
 import time
 
-import maze as mz
-import syringe as sy
-import macgyver as mg
+import maze
+import syringe as syrg
+import macgyver as macg
 import constants as c
 
 
 class GameGui:
     """Formatting the game with the methods of the other class and his own"""
-    def __init__(self, mz, sy, mg):
+    def __init__(self, maze, syrg, macg):
         """Constructor
 
         Params:
-            mz: Instance of class Maze
-            sy: Instance of class Syringe
-            mg: Instance of class Macgyver
+            maze: Instance of class Maze
+            syrg: Instance of class Syringe
+            macg: Instance of class Macgyver
 
         """
-        self.mz = mz
-        self.sy = sy
-        self.mg = mg
+        self.maze = maze.Maze()
+        self.maze.load()
+        self.syrg = syrg.Syringe(self.maze)
+        self.macg = macg.Macgyver(self.maze, self.syrg)
         self.surface = None
 
     def seek(self, picture):
@@ -76,7 +77,7 @@ class GameGui:
         img_needle = pygame.image.load(self.seek(c.NEEDLE_IMG)).convert_alpha()
         img_tube = pygame.image.load(self.seek(c.TUBE_IMG)).convert_alpha()
         img_ether = pygame.image.load(self.seek(c.ETHER_IMG)).convert_alpha()
-        for i, line in enumerate(self.mz.structure):
+        for i, line in enumerate(self.maze.structure):
             for j, element in enumerate(line):
                 position = j * c.SPRITE_SIZE, i * c.SPRITE_SIZE
                 if element == c.FLOOR:
@@ -116,14 +117,14 @@ class GameGui:
         """Show objects counter
 
         Use the self.show() method with the written parameter create,
-        to take the length of the attributes self.mg.bag and self.sy.items
+        to take the length of the attributes self.macg.bag and self.syrg.items
 
         Return:
             A pygame text representing an object counter
 
         """
-        items = len(self.sy.items)
-        bag = len(self.mg.bag)
+        items = len(self.syrg.items)
+        bag = len(self.macg.bag)
         written = "Picked Objects : {} / {}".format(bag, items)
         return self.show(c.COUNT_SIZ, written, c.COUNT_COL, c.COUNT_LOC)
 
@@ -140,8 +141,8 @@ class GameGui:
         presses directional key up, or key down, or key left, or key right
         Display the maze with pygame
         Display the object counter
-        Check the length self.mg.bag
-        If it has the same length as self.sy.items
+        Check the length self.macg.bag
+        If it has the same length as self.syrg.items
         Display a pygame text (Made Syringe)
         Check the end conditions
         If won, display a pygame text (You win)
@@ -149,7 +150,7 @@ class GameGui:
         Refresh window pygame
 
         """
-        self.sy.place_items()
+        self.syrg.place_items()
         self.graph_maze()
         self.counter()
         end = False
@@ -157,16 +158,16 @@ class GameGui:
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP:
-                        end = self.mg.step_up()
+                        end = self.macg.step_up()
                     elif event.key == pygame.K_DOWN:
-                        end = self.mg.step_down()
+                        end = self.macg.step_down()
                     elif event.key == pygame.K_LEFT:
-                        end = self.mg.step_left()
+                        end = self.macg.step_left()
                     elif event.key == pygame.K_RIGHT:
-                        end = self.mg.step_right()
+                        end = self.macg.step_right()
                     self.graph_maze()
                     self.counter()
-                    if len(self.mg.bag) == len(self.sy.items):
+                    if len(self.macg.bag) == len(self.syrg.items):
                         self.show(c.SY_SIZ, c.SY_WRI, c.SY_COL, c.SY_LOC)
                     if end == c.WIN:
                         self.show(c.WIN_SIZ, c.WIN_WRI, c.WIN_COL, c.WIN_LOC)
@@ -180,11 +181,7 @@ class GameGui:
 
 
 def main():
-    maze = mz.Maze()
-    syringe = sy.Syringe(maze)
-    macgyver = mg.Macgyver(maze, syringe)
-    gamegui = GameGui(maze, syringe, macgyver)
-    maze.load()
+    gamegui = GameGui(maze, syrg, macg)
     gamegui.play()
 
 if __name__ == "__main__":

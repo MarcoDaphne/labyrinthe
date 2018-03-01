@@ -3,26 +3,26 @@
 
 """This module is responsible for launching the game"""
 
-import maze as mz
-import syringe as sy
-import macgyver as mg
+import maze
+import syringe as syrg
+import macgyver as macg
 import constants as c
 
 
 class Game:
     """Formatting the game with the methods of the other class and his own"""
-    def __init__(self, mz, sy, mg):
+    def __init__(self, maze, syrg, macg):
         """Constructor
 
         Params:
-            mz: Instance of class Maze
-            sy: Instance of class Syringe
-            mg: Instance of class Macgyver
+            maze: Instance of class Maze
+            syrg: Instance of class Syringe
+            macg: Instance of class Macgyver
 
         """
-        self.mz = mz
-        self.sy = sy
-        self.mg = mg
+        self.maze = maze
+        self.syrg = syrg
+        self.macg = macg
         self.want_play = None
         self.get_direction = None
 
@@ -61,13 +61,13 @@ Utiliser les touches ou sur 'l' pour quitter:
 
         """
         if self.get_direction == c.UP:
-            return self.mg.step_up()
+            return self.macg.step_up()
         elif self.get_direction == c.DOWN:
-            return self.mg.step_down()
+            return self.macg.step_down()
         elif self.get_direction == c.LEFT:
-            return self.mg.step_left()
+            return self.macg.step_left()
         elif self.get_direction == c.RIGHT:
-            return self.mg.step_right()
+            return self.macg.step_right()
         elif self.get_direction == c.LEAVE:
             exit()
 
@@ -82,8 +82,8 @@ Utiliser les touches ou sur 'l' pour quitter:
         """
         print("""
 Vous avez {}/{} objets.
-        """.format(len(self.mg.bag), len(self.sy.items)))
-        for item in self.mg.bag:
+        """.format(len(self.macg.bag), len(self.syrg.items)))
+        for item in self.macg.bag:
             if item == c.NEEDLE:
                 print("- Aiguille", end=" ")
             elif item == c.TUBE:
@@ -109,28 +109,28 @@ Vous avez {}/{} objets.
         if lost, display you lost
 
         """
-        loading = self.mz.load()
-        display = self.mz.show()
+        loading = self.maze.load()
+        display = self.maze.show()
         play = self.get_answer()
         end = False
         if play == c.YES:
-            set_items = self.sy.place_items()
+            set_items = self.syrg.place_items()
             while not end:
-                display = self.mz.show()
+                display = self.maze.show()
                 notify_pickup = self.show_pickup()
                 choice = self.choose_direction()
                 end = self.move()
             if end == c.WIN:
-                display = self.mz.show()
+                display = self.maze.show()
                 print("\nBravo!!! \nVous avez endormi Murdoc.")
             elif end == c.LOOSE:
-                display = self.mz.show()
+                display = self.maze.show()
                 print("\nMurdoc a tué MacGyver!!!")
 
 
 if __name__ == '__main__':
-    maze = mz.Maze()
-    syringe = sy.Syringe(maze)
-    macgyver = mg.Macgyver(maze, syringe)
+    maze = maze.Maze()
+    syringe = syrg.Syringe(maze)
+    macgyver = macg.Macgyver(maze, syringe)
     game = Game(maze, syringe, macgyver)
     game.start()

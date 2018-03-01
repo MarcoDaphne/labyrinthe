@@ -5,7 +5,7 @@
 
 import random
 
-import maze as mz
+import maze
 import constants as c
 
 
@@ -15,14 +15,14 @@ class Syringe:
     Each piece is randomly placed in the maze.
 
     """
-    def __init__(self, mz):
+    def __init__(self, maze):
         """Constructor
 
         Params:
-            mz: Instance of class Maze
+            maze: Instance of class Maze
 
         """
-        self.mz = mz
+        self.maze = maze
         self.items = [c.NEEDLE, c.TUBE, c.ETHER]
 
     def find_random_positions(self):
@@ -36,8 +36,8 @@ class Syringe:
             list: A list of tuples
 
         """
-        passage = set(self.mz.free_pos)
-        end_positions = set(self.mz.endl[0])
+        passage = set(self.maze.free_pos)
+        end_positions = set(self.maze.endl[0])
         freeway = passage - end_positions
         chosen_positions = random.sample(freeway, len(self.items))
         return chosen_positions
@@ -54,11 +54,11 @@ class Syringe:
         position = self.find_random_positions()
         for n, item in enumerate(self.items):
             i, j = position[n]
-            self.mz.set(i, j, item)
+            self.maze.set(i, j, item)
 
 
 if __name__ == "__main__":
-    maze = mz.Maze()
+    maze = maze.Maze()
     syringe = Syringe(maze)
     maze.load()
     syringe.place_items()

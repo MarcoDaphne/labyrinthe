@@ -1,8 +1,8 @@
 #! /usr/bin/env python3
 # Coding : utf-8
 
-import maze as mz
-import syringe as sy
+import maze
+import syringe as syrg
 import constants as c
 
 """This module is responsible for determining the possibilities of MacGyver"""
@@ -14,16 +14,16 @@ class Macgyver:
     Go up, down, left, right, pick up, lose or win.
 
     """
-    def __init__(self, mz, sy):
+    def __init__(self, maze, syrg):
         """Constructor
 
         params:
-            mz: Instance of class Maze
-            sy: Instance of class Syringe
+            maze: Instance of class Maze
+            syrg: Instance of class syringe
 
         """
-        self.mz = mz
-        self.sy = sy
+        self.maze = maze
+        self.syrg = syrg
         self.bag = []
 
     def move_and_locate(self, i, j):
@@ -34,8 +34,8 @@ class Macgyver:
             j (int): Abscissa of maze
 
         """
-        self.mz.set(i, j, c.MACGYVER)
-        self.mz.locate_macgyver(i, j)
+        self.maze.set(i, j, c.MACGYVER)
+        self.maze.locate_macgyver(i, j)
 
     def pick_up_or_move(self, i, j):
         """Retrieves objects if existing or moves
@@ -57,19 +57,15 @@ class Macgyver:
             str: If you lose
 
         """
-        if self.mz.get(i, j) == c.NEEDLE:
-            self.bag.append(c.NEEDLE)
+        sprite = self.maze.get(i, j)
+        end = self.maze.endl[0]
+        if sprite in self.syrg.items:
+            self.bag.append(sprite)
             self.move_and_locate(i, j)
-        elif self.mz.get(i, j) == c.TUBE:
-            self.bag.append(c.TUBE)
-            self.move_and_locate(i, j)
-        elif self.mz.get(i, j) == c.ETHER:
-            self.bag.append(c.ETHER)
-            self.move_and_locate(i, j)
-        elif len(self.bag) == len(self.sy.items) and (i, j) in self.mz.endl[0]:
+        elif len(self.bag) == len(self.syrg.items) and (i, j) in end:
             self.move_and_locate(i, j)
             return c.WIN
-        elif (i, j) in self.mz.endl[0]:
+        elif (i, j) in end:
             self.move_and_locate(i, j)
             return c.LOOSE
         else:
@@ -87,11 +83,11 @@ class Macgyver:
             str: Return value of the (self.pick_up_or_move()) method
 
         """
-        i, j = self.mz.macgyver_location
-        strt = self.mz.structure
-        get = self.mz.get(i - 1, j)
+        i, j = self.maze.macgyver_location
+        strt = self.maze.structure
+        get = self.maze.get(i - 1, j)
         if get != c.WALL and 0 < i < len(strt):
-            self.mz.set(i, j, c.FLOOR)
+            self.maze.set(i, j, c.FLOOR)
             return self.pick_up_or_move(i - 1, j)
 
     def step_right(self):
@@ -106,11 +102,11 @@ class Macgyver:
             str: Return value of the (self.pick_up_or_move()) method
 
         """
-        i, j = self.mz.macgyver_location
-        strt = self.mz.structure
-        get = self.mz.get(i, j + 1)
+        i, j = self.maze.macgyver_location
+        strt = self.maze.structure
+        get = self.maze.get(i, j + 1)
         if get != c.WALL and 0 < j < len(strt):
-            self.mz.set(i, j, c.FLOOR)
+            self.maze.set(i, j, c.FLOOR)
             return self.pick_up_or_move(i, j + 1)
 
     def step_down(self):
@@ -125,11 +121,11 @@ class Macgyver:
             str: Return value of the (self.pick_up_or_move()) method
 
         """
-        i, j = self.mz.macgyver_location
-        strt = self.mz.structure
-        get = self.mz.get(i + 1, j)
+        i, j = self.maze.macgyver_location
+        strt = self.maze.structure
+        get = self.maze.get(i + 1, j)
         if get != c.WALL and 0 <= i < len(strt):
-            self.mz.set(i, j, c.FLOOR)
+            self.maze.set(i, j, c.FLOOR)
             return self.pick_up_or_move(i + 1, j)
 
     def step_left(self):
@@ -144,18 +140,18 @@ class Macgyver:
             str: Return value of the (self.pick_up_or_move()) method
 
         """
-        i, j = self.mz.macgyver_location
-        strt = self.mz.structure
-        get = self.mz.get(i, j - 1)
+        i, j = self.maze.macgyver_location
+        strt = self.maze.structure
+        get = self.maze.get(i, j - 1)
         if get != c.WALL and 0 < j < len(strt):
-            self.mz.set(i, j, c.FLOOR)
+            self.maze.set(i, j, c.FLOOR)
             return self.pick_up_or_move(i, j - 1)
 
 
 if __name__ == "__main__":
-    maze = mz.Maze()
+    maze = maze.Maze()
     maze.load()
-    syringe = sy.Syringe(maze)
+    syringe = syrg.Syringe(maze)
     syringe.place_items()
     macgyver = Macgyver(maze, syringe)
     macgyver.step_up()
