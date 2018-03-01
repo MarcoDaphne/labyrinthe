@@ -181,6 +181,7 @@ class GameGui:
 
 
 def main():
+    """Creating the GameGui object and launching the game"""
     gamegui = GameGui(maze, syrg, macg)
     gamegui.play()
 
