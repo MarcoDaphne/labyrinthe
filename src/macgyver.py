@@ -1,11 +1,11 @@
 #! /usr/bin/env python3
 # Coding : utf-8
 
+"""This module is responsible for determining the possibilities of MacGyver"""
+
 import maze
 import syringe as syrg
 import constants as c
-
-"""This module is responsible for determining the possibilities of MacGyver"""
 
 
 class Macgyver:
